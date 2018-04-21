@@ -24,7 +24,7 @@ class LINE:
 
   def __init__(self):
     self.Talk = Talk()
-    self._session = requests.session()    
+    self._session = requests.session()
 
   def login(self, mail=None, passwd=None, cert=None, token=None, qr=False, callback=None):
     if callback is None:
@@ -47,7 +47,7 @@ class LINE:
     self.Poll = Poll(self.authToken)
     self.channel = channel.Channel(self.authToken)
     #self.channel.login()
-    
+
     self.mid = self.channel.mid
     self.channel_access_token = self.channel.channel_access_token
     self.token = self.channel.token
@@ -56,7 +56,7 @@ class LINE:
     self._headers = {
               'X-Line-Application': 'CHROMEOS\t8.4.2\tChrome_OS\t1',
               'X-Line-Access': self.authToken,
-              'User-Agent': 'Line/8.4.2' 
+              'User-Agent': 'Line/8.4.2'
                }
 
   """User"""
@@ -75,19 +75,19 @@ class LINE:
 
   def updateSettings(self, settingObject):
     return self.Talk.client.updateSettings(0, settingObject)
-    
+
   def updateProfilePicture(self, profileObject):
     return self.Talk.client.updateProfilePicture(0, profileObject)
 
   def cloneContactProfile(self, mid):
-      contact = self.getContact(mid) 
+      contact = self.getContact(mid)
       profile = self.getProfile()
       profile.displayName = contact.displayName
       profile.statusMessage = contact.statusMessage
       profile.pictureStatus = contact.pictureStatus
       self.updateDisplayPicture(profile.pictureStatus)
       return self.updateProfile(profile)
-    
+
   def updateDisplayPicture(self, hash_id):
       return self.Talk.client.updateProfileAttribute(0, 8, hash_id)
 
@@ -136,8 +136,8 @@ class LINE:
             'ver': '1.0',
         }
         data = {
-            'params': json.dumps(params)            
-        }       
+            'params': json.dumps(params)
+        }
 
         r = self.post_content('https://os.line.naver.jp/talk/m/upload.nhn', data=data, files=files)
         print r
@@ -175,7 +175,7 @@ class LINE:
          self.sendAudio(to_, path)
       except Exception as e:
          raise e
-  
+
   def sendAudio(self, to_, path):
       M = Message(to=to_,contentType = 3)
       M.contentMetadata = None
@@ -198,7 +198,7 @@ class LINE:
       if r.status_code != 201:
          raise Exception('Upload image failure.')
       return True
- 
+
   def sendVideo(self, to_, path):
       M = Message(to=to_,contentType = 2)
       M.contentMetadata = {
@@ -304,9 +304,9 @@ class LINE:
 
   def getContact(self, mid):
         return self.Talk.client.getContact(mid)
-        
+
   def getCover(self, midlist):
-        return self.Talk.client.getCover(midlist)      
+        return self.Talk.client.getCover(midlist)
 
   def getContacts(self, midlist):
         return self.Talk.client.getContacts(midlist)
@@ -438,7 +438,7 @@ class LINE:
 
       prof = self.getProfile()
 
-      print("VIPROBOTS")
+      print("TREEBOTS")
       print("YOURMID= " + prof.mid)
       print("YOURNAME= " + prof.displayName)
       print("TOKENMU= " + self.authToken)
